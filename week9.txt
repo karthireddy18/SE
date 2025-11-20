@@ -1,0 +1,59 @@
+
+
+Week 9: Pipeline Creation using script 
+1.	Evaluation of Jenkins pipeline.
+2.	WORKING ON BUILD TRIGGERS FOR LAST JENKINS PIPILINE
+3.	Hands-on practice on creation of scripted Jenkins pipeline.
+4.	Take  the screenshots for above task 
+
+
+Procedure
+General :
+ 	Description :-  provide the description of the project
+	Build triggers:  here we can provide with build triggers of you choice
+Advance project option:
+	Definition: 
+		Choose pipeline script
+ 
+Here code for pipeline -script
+	
+Copy the code there
+-------------------------------------------------------------------------------------------------------------------------
+pipeline {
+    agent any
+
+    tools {
+        maven 'MAVEN-HOME'
+    }
+
+    stages {
+
+        stage('Git Clone & Clean') {
+            steps {
+                bat 'rmdir /s /q mavenjava || exit 0'
+                bat 'git clone https://github.com/Manisanthan/myjavaapp.git'
+                bat 'mvn clean -f myjavaapp/pom.xml'
+            }
+        }
+
+        stage('Install') {
+            steps {
+                bat 'mvn install -f myjavaapp/pom.xml'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test -f myjavaapp/pom.xml'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat 'mvn package -f myjavaapp/pom.xml'
+            }
+        }
+    }
+}
+Apply and save
+SBQ’s:	
