@@ -1,0 +1,30 @@
+Creating a Multi-Module Maven Project:
+1.	Open eclipse-> file-> new -> other -> Maven -> MavenProject ->click on next.
+2.	Check the first option: Create a Simple project(skip archetype selection) and click on next.
+3.	Give groupID: KMIT, artifact ID: MultiModule, in the packaging tab select the drop down and opt for pom.
+4.	Give Name: Multimodule creation and Description: Sample multimodule with parent child hierarchy and click on next.
+5.	Now the Multimodule folder is created and displayed in the project explorer on the left. Right click on the folder and opt new -> mavenModule
+6.	Check the option Create a Simple project(skip archetype selection, give the artifactID: MultiModuleChild1 and click on next and finish.
+7.	Now you can see, the module1 we created is displayed in the project explorer with a separate pom.xml file.
+8.	. Right click on the MultiModule folder in the project explorer and opt new -> mavenModule
+9.	Give the artifactID: MultiModuleChild2 and click on next.
+10.	In filters search for maven-archetype-webapp, select the version 1.1/1.5 and click on next.
+11.	Now click on finish, and confirm with a Y in the console.
+12.	Now you can watch the new child is been added to the parent project.
+Note: Childs or Modules can be added to the projects who have the packaging type as pom. If we try to create a module within child1 it is not possible since its packaging is opted to JAR.
+Linking two modules in a Parent Project:
+Go to the module u want to connect. And add a dependency to other module on which the current module depends. For example if my child2 is dependent on child1. I have to change the dependencies in the pom.xml by adding a new dependency of child1.
+Steps to add dependency:
+1.	Goto pom.xml of child2.
+2.	Navigate to dependencies tag. Update the dependencies with child1 dependency as given below, and save pom.xml after update.
+<dependency>
+		<groupId>KMIT</groupId>
+			<artifactId>MultimoduleChild1</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+
+
+3.	Now build the child2 by right clicking it and opting run as->maven build.
+4.	The build will be a failure. Because we haven’t build the parent project and the child project. Child1 is dependent on parent. And Child2 is dependent on child2. SO we have to build ass the previous module first and then build the current child2.
+5.	After building parent and child1, build child2 now the build will be a Success
+
